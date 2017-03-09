@@ -78,6 +78,26 @@ TEST(Board, ReprRectangle)
 	EXPECT_EQ(expected, fake_cout.str());
 }
 
+TEST(Board, ReprRectangleOut)
+{
+	Board board = {9,8};
+	Move move = {40,5};
+	std::string expected =
+			"There is a Move beyond the board extent!\n"
+			". . . . . . . . \n"
+			". . . . . . . . \n"
+			". . . . . . . . \n"
+			". . . . . . . . \n"
+			". . . . . . . . \n"
+			". . . . . . . . \n"
+			". . . . . . . . \n"
+			". . . . . . . . \n"
+			". . . . . . . . \n";
+	std::stringstream fake_cout;
+	fake_cout << std::tuple<Board, Move>(board, move);
+	EXPECT_EQ(expected, fake_cout.str());
+}
+
 TEST(Board, WithinRectangle)
 {
 	Board board = {9,8};

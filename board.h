@@ -65,7 +65,7 @@ std::ostream& operator<<(std::ostream& os, const std::tuple<Board, Move>& print)
 		board_repr.get(move.row, move.col) = knight;
 	}
 	else {
-		os << "There is a Move beyond the board extent!";
+		os << "There is a Move beyond the board extent!" << std::endl;
 	}
 
 	os << board_repr;
