@@ -1,5 +1,6 @@
 #include "../knight.h"
 #include "../board.h"
+#include "../level_1.h"
 #include <sstream>
 
 #include "gtest/gtest.h"
@@ -109,4 +110,49 @@ TEST(Board, WithinRectangle)
 	EXPECT_TRUE(within(board, move_boundary));
 	EXPECT_FALSE(within(board, move_wacko1));
 	EXPECT_FALSE(within(board, move_wacko2));
+}
+
+TEST(Level1, ValidSequence)
+{
+	Board board = {8,8};
+	std::vector<Move> moves = {{4,4}, {5,6}, {4,4}, {5,2}};
+	EXPECT_TRUE(is_valid_sequence(moves));
+}
+
+TEST(Level1, InvalidSequenceDynamics)
+{
+	Board board = {8,8};
+	std::vector<Move> moves = {{4,4}, {5,6}, {4,4}, {5,5}};
+	EXPECT_FALSE(is_valid_sequence(moves));
+}
+
+TEST(Level1, InvalidSequenceBoundary)
+{
+	Board board = {8,8};
+	std::vector<Move> moves = {{4,4}, {5,6}, {6,8}};
+	EXPECT_FALSE(is_valid_sequence(moves));
+}
+
+TEST(Level1, ValidSequencePrint)
+{
+	Board board = {8,8};
+	std::vector<Move> moves = {{4,4}, {5,6}, {4,4}, {5,2}};
+	// not testing output, but printing to stdout.
+	EXPECT_TRUE(is_valid_sequence(moves, &std::cout));
+}
+
+TEST(Level1, InvalidSequenceDynamicsPrint)
+{
+	Board board = {8,8};
+	std::vector<Move> moves = {{4,4}, {5,6}, {4,4}, {5,5}};
+	// not testing output, but printing to stdout.
+	EXPECT_FALSE(is_valid_sequence(moves, &std::cout));
+}
+
+TEST(Level1, InvalidSequenceBoundaryPrint)
+{
+	Board board = {8,8};
+	std::vector<Move> moves = {{4,4}, {5,6}, {6,8}};
+	// not testing output, but printing to stdout.
+	EXPECT_FALSE(is_valid_sequence(moves, &std::cout));
 }
