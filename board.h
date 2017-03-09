@@ -13,8 +13,7 @@ struct Board {
 };
 
 bool within(Board b, Move m) {
-	auto t = std::tie(m.row, m.col);
-	return (std::tuple<int, int>(0, 0) <= t) && (t < std::tie(b.rows, b.cols));
+	return (0 <= m.row && 0 <= m.col) && (m.row < b.rows && m.col < b.cols);
 }
 
 void print_string_grid(std::ostream& os, std::vector<std::vector<std::string> > repr) {

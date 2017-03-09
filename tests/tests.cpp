@@ -77,3 +77,16 @@ TEST(Board, ReprRectangle)
 	fake_cout << std::tuple<Board, Move>(board, move);
 	EXPECT_EQ(expected, fake_cout.str());
 }
+
+TEST(Board, WithinRectangle)
+{
+	Board board = {9,8};
+	Move move = {4,5};
+	Move move_boundary = {0,5};
+	Move move_wacko1 = {9,8};
+	Move move_wacko2 = {9,0};
+	EXPECT_TRUE(within(board, move));
+	EXPECT_TRUE(within(board, move_boundary));
+	EXPECT_FALSE(within(board, move_wacko1));
+	EXPECT_FALSE(within(board, move_wacko2));
+}
