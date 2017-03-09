@@ -1,6 +1,14 @@
 cmake_minimum_required(VERSION 3.4) # lower versions should work
+set(CMAKE_CXX_STANDARD 11)
+
 project (OptimusKnight)
 project (OptimusKnightTests)
+
+#set_property(TARGET OptimusKnight PROPERTY CXX_STANDARD 11)
+#set_property(TARGET OptimusKnight PROPERTY CXX_STANDARD_REQUIRED ON)
+
+#set_property(TARGET OptimusKnightTests PROPERTY CXX_STANDARD 11)
+#set_property(TARGET OptimusKnightTests PROPERTY CXX_STANDARD_REQUIRED ON)
 
 # Download and unpack googletest at configure time
 configure_file(CMakeLists.txt.in googletest-download/CMakeLists.txt)
