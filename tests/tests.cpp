@@ -40,3 +40,40 @@ TEST(DynamicsTest, NoBoundary)
 	});
 	EXPECT_EQ(expected, successors);
 }
+
+TEST(Board, ReprSquare)
+{
+	Board board = {8,8};
+	Move move = {4,4};
+	std::string expected =
+			". . . . . . . . \n"
+			". . . . . . . . \n"
+			". . . . . . . . \n"
+			". . . . . . . . \n"
+			". . . . K . . . \n"
+			". . . . . . . . \n"
+			". . . . . . . . \n"
+			". . . . . . . . \n";
+	std::stringstream fake_cout;
+	fake_cout << std::tuple<Board, Move>(board, move);
+	EXPECT_EQ(expected, fake_cout.str());
+}
+
+TEST(Board, ReprRectangle)
+{
+	Board board = {9,8};
+	Move move = {4,5};
+	std::string expected =
+			". . . . . . . . \n"
+			". . . . . . . . \n"
+			". . . . . . . . \n"
+			". . . . . . . . \n"
+			". . . . . K . . \n"
+			". . . . . . . . \n"
+			". . . . . . . . \n"
+			". . . . . . . . \n"
+			". . . . . . . . \n";
+	std::stringstream fake_cout;
+	fake_cout << std::tuple<Board, Move>(board, move);
+	EXPECT_EQ(expected, fake_cout.str());
+}
