@@ -1,6 +1,7 @@
 #include "../knight.h"
 #include "../board.h"
 #include "../level_1.h"
+#include "../level_3.h"
 #include <sstream>
 
 #include "gtest/gtest.h"
@@ -155,4 +156,45 @@ TEST(Level1, InvalidSequenceBoundaryPrint)
 	std::vector<Move> moves = {{4,4}, {5,6}, {6,8}};
 	// not testing output, but printing to stdout.
 	EXPECT_FALSE(is_valid_sequence(moves, &std::cout));
+}
+
+
+TEST(Level3, SearchTrivial)
+{
+	std::vector<Move> path;
+	bool found_path = search_shortest(Move({4,4}), Move({4,4}), path);
+	EXPECT_TRUE(found_path);
+	EXPECT_EQ(std::vector<Move>({{4,4}}), path);
+}
+
+TEST(Level3, SearchOneStep)
+{
+	std::vector<Move> path;
+	bool found_path = search_shortest(Move({4,4}), Move({5,6}), path);
+	EXPECT_TRUE(found_path);
+	EXPECT_EQ(std::vector<Move>({{5,6}}), path);
+}
+
+TEST(Level3, SearchInfeasable)
+{
+	std::vector<Move> path;
+	bool found_path = search_shortest(Move({4,4}), Move({10,10}), path);
+	EXPECT_FALSE(found_path);
+}
+
+TEST(Level3, SearchInteresting)
+{
+	std::vector<Move> path;
+	auto start = Move({0,0});
+	bool found_path = search_shortest(start, Move({7,7}), path);
+	EXPECT_TRUE(found_path);
+
+	BoardRepr board_repr(Board({8,8}), "");
+	// mark the start.
+	board_repr.get(start.row, start.col) = "S";
+	update(board_repr, path);
+	board_repr.fill_empty(".");
+	std::cout << board_repr;
+	// There may be multiple shortest paths, so just check the length.
+	EXPECT_EQ(6, path.size());
 }
