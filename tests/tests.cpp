@@ -222,3 +222,69 @@ TEST(Level3, SearchBig)
 	// There may be multiple shortest paths, so just check the length.
 	EXPECT_EQ(14, path.size());
 }
+
+TEST(Level2, SkillSetValid)
+{
+	for (auto skill : slide_col_skills) {
+		auto skill_moved = translate(skill, Move({4,4}));
+		EXPECT_TRUE(is_valid_sequence(skill_moved));
+		BoardRepr board_repr(Board({8,8}), "");
+		update(board_repr, skill_moved);
+		board_repr.fill_empty(".");
+		std::cout << "Skill" << std::endl << board_repr;
+	}
+}
+
+void chain_skills_test_helper(Move start, Move goal, Board board) {
+	std::vector<Move> path;
+	chain_skills(start, goal, path, board);
+	EXPECT_TRUE(is_valid_sequence(path));
+	EXPECT_EQ(goal, path.back());
+	EXPECT_EQ(start, path.front());
+}
+TEST(Level2, Corners)
+{
+	Board board = {8, 8};
+	chain_skills_test_helper(Move({0,0}), Move({0,1}), board);
+	chain_skills_test_helper(Move({0,0}), Move({1,0}), board);
+	chain_skills_test_helper(Move({0,7}), Move({0,6}), board);
+	chain_skills_test_helper(Move({0,7}), Move({1,7}), board);
+	chain_skills_test_helper(Move({7,7}), Move({7,6}), board);
+	chain_skills_test_helper(Move({7,7}), Move({6,7}), board);
+	chain_skills_test_helper(Move({7,0}), Move({7,1}), board);
+	chain_skills_test_helper(Move({7,0}), Move({6,0}), board);
+}
+
+TEST(Level2, LongMove)
+{
+	Move start = {0, 0};
+	Move goal = {7, 7};
+	Board board = {8, 8};
+	std::vector<Move> path;
+	chain_skills(start, goal, path, board);
+
+	BoardRepr board_repr(board, "");
+	update(board_repr, path);
+	board_repr.fill_empty(".");
+	EXPECT_TRUE(is_valid_sequence(path));
+	EXPECT_EQ(goal, path.back());
+	EXPECT_EQ(start, path.front());
+	std::cout << "Chained Skills" << std::endl << board_repr;
+}
+
+TEST(Level2, LongMoveOpposite)
+{
+	Move start = {7, 7};
+	Move goal = {0, 0};
+	Board board = {8, 8};
+	std::vector<Move> path;
+	chain_skills(start, goal, path, board);
+
+	BoardRepr board_repr(board, "");
+	update(board_repr, path);
+	board_repr.fill_empty(".");
+	EXPECT_TRUE(is_valid_sequence(path));
+	EXPECT_EQ(goal, path.back());
+	EXPECT_EQ(start, path.front());
+	std::cout << "Chained Skills" << std::endl << board_repr;
+}
