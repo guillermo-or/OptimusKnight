@@ -5,7 +5,7 @@
 #include "board.h"
 #include <tuple>
 
-bool is_valid_sequence(std::vector<Move> moves, Board board, std::ostream *os) {
+bool is_valid_sequence(const std::vector<Move>& moves, const Board& board, std::ostream *os) {
 
 	/*
 	Level 1:

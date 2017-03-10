@@ -24,6 +24,7 @@ public:
 
 	// I considered overloading [], but I did not want to handle the complexity of
 	// a partial index like: `board_repr[3]`
+	// method cannot be made const for it returns a reference.
 	std::string& get(int row, int col) {
 		// out-of-bounds errors passed onto underlying data structure.
 		return repr_[row][col];
@@ -93,7 +94,7 @@ std::ostream& operator<<(std::ostream& os, const std::tuple<Board, Move>& print)
 
 // update a BoardRepr with a sequence of moves
 
-void update(BoardRepr& board_repr, std::vector<Move> & moves) {
+void update(BoardRepr& board_repr, const std::vector<Move>& moves) {
 	// Will be silent about out-of-boundary moves.
 	// Will be better if `board_repr`'s initial value is "".
 	for (int i = 0; i < moves.size(); ++i) {

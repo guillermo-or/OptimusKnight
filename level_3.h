@@ -10,7 +10,7 @@
 #include "search.h"
 
 
-std::unordered_set<Move> bounded_dynamics(Move m, Board b) {
+std::unordered_set<Move> bounded_dynamics(const Move& m, const Board& b) {
 	std::unordered_set<Move> r;
 	// filter out moves that take you out of the board.
 	for (auto s : dynamics(m)) {
