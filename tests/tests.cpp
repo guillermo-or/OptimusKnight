@@ -2,6 +2,7 @@
 #include "../board.h"
 #include "../level_1.h"
 #include "../level_3.h"
+#include "../level_2.h"
 #include <sstream>
 
 #include "gtest/gtest.h"
@@ -220,21 +221,4 @@ TEST(Level3, SearchBig)
 	std::cout << board_repr;
 	// There may be multiple shortest paths, so just check the length.
 	EXPECT_EQ(14, path.size());
-}
-
-TEST(Level3, SearchPrimitive)
-{
-	std::vector<Move> path;
-	auto start = Move({0,0});
-	bool found_path = search_shortest(start, Move({0,1}), path);
-	EXPECT_TRUE(found_path);
-
-	BoardRepr board_repr(Board({8,8}), "");
-	// mark the start.
-	board_repr.get(start.row, start.col) = "S";
-	update(board_repr, path);
-	board_repr.fill_empty(".");
-	std::cout << board_repr;
-	// There may be multiple shortest paths, so just check the length.
-	EXPECT_EQ(6, path.size());
 }
