@@ -6,10 +6,11 @@
 #include <unordered_map>
 #include <queue>
 #include <vector>
+#include <functional>
 
 template <typename PathElement>
 bool bfs(const PathElement& start, const PathElement& goal,
-		std::unordered_set<PathElement> (*successor)(PathElement),
+		std::function<std::unordered_set<PathElement>(PathElement)> successor,
 		std::vector<PathElement>& reverse_path) {
 	// returned path does not include `start`.
 	// but it always includes `goal`.

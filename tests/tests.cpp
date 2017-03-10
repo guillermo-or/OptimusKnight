@@ -198,3 +198,43 @@ TEST(Level3, SearchInteresting)
 	// There may be multiple shortest paths, so just check the length.
 	EXPECT_EQ(6, path.size());
 }
+
+TEST(Level3, SearchBig)
+{
+	std::vector<Move> path;
+	auto start = Move({0,0});
+	Board board = {17, 27};
+	std::function<std::unordered_set<Move>(Move)> successor = std::bind(
+			bounded_dynamics,
+			std::placeholders::_1, board
+		);
+
+	bool found_path = bfs(start, Move({16,26}), successor, path);
+	EXPECT_TRUE(found_path);
+
+	BoardRepr board_repr(board, "");
+	// mark the start.
+	board_repr.get(start.row, start.col) = "S";
+	update(board_repr, path);
+	board_repr.fill_empty(".");
+	std::cout << board_repr;
+	// There may be multiple shortest paths, so just check the length.
+	EXPECT_EQ(14, path.size());
+}
+
+TEST(Level3, SearchPrimitive)
+{
+	std::vector<Move> path;
+	auto start = Move({0,0});
+	bool found_path = search_shortest(start, Move({0,1}), path);
+	EXPECT_TRUE(found_path);
+
+	BoardRepr board_repr(Board({8,8}), "");
+	// mark the start.
+	board_repr.get(start.row, start.col) = "S";
+	update(board_repr, path);
+	board_repr.fill_empty(".");
+	std::cout << board_repr;
+	// There may be multiple shortest paths, so just check the length.
+	EXPECT_EQ(6, path.size());
+}
