@@ -5,6 +5,7 @@
 #include "board.h"
 #include <tuple>
 
+// https://google.github.io/styleguide/cppguide.html#Default_Arguments
 bool is_valid_sequence(std::vector<Move> moves, std::ostream *os=NULL) {
 
 	/*
