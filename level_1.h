@@ -5,8 +5,7 @@
 #include "board.h"
 #include <tuple>
 
-// https://google.github.io/styleguide/cppguide.html#Default_Arguments
-bool is_valid_sequence(std::vector<Move> moves, std::ostream *os=NULL) {
+bool is_valid_sequence(std::vector<Move> moves, Board board, std::ostream *os) {
 
 	/*
 	Level 1:
@@ -25,7 +24,6 @@ bool is_valid_sequence(std::vector<Move> moves, std::ostream *os=NULL) {
 			Explicit message if a move goes beyond the extent of the board.
 	 */
 
-	Board board = {8, 8};
 	std::string board_separator = "\n";
 	bool ret = true;
 
@@ -54,5 +52,18 @@ bool is_valid_sequence(std::vector<Move> moves, std::ostream *os=NULL) {
 	}
 
 	return ret;
+}
+
+// https://google.github.io/styleguide/cppguide.html#Default_Arguments
+bool is_valid_sequence(std::vector<Move> moves, std::ostream *os) {
+	return is_valid_sequence(moves, Board({8,8}), os);
+}
+
+bool is_valid_sequence(std::vector<Move> moves) {
+	return is_valid_sequence(moves, Board({8,8}), NULL);
+}
+
+bool is_valid_sequence(std::vector<Move> moves, Board board) {
+	return is_valid_sequence(moves, board, NULL);
 }
 #endif /* LEVEL_1_H_ */
